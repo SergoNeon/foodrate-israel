@@ -111,7 +111,7 @@ function photo(p){return p.photo_url?'<img src="'+esc(p.photo_url)+'" alt="'+esc
 
 function placeCard(p){
  const navs=hasCoords(p)?'<a class="quickBtn googleMini" href="'+googleUrl(p)+'" target="_blank" rel="noopener" aria-label="Google Maps">G</a><a class="quickBtn wazeMini" href="'+wazeUrl(p)+'" target="_blank" rel="noopener" aria-label="Waze">W</a>':'';
- return '<article class="placeCard"><a class="placeMedia" href="restaurant.html?id='+encodeURIComponent(p.id)+'">'+photo(p)+'<span class="categoryBadge">'+esc(categoryName(p.category))+'</span></a><div class="placeBody"><a class="placeTitle" href="restaurant.html?id='+encodeURIComponent(p.id)+'">'+esc(placeName(p))+'</a><div class="placeLocation">'+esc(cityName(p))+'</div><div class="placeFooter"><a class="openPlace" href="restaurant.html?id='+encodeURIComponent(p.id)+'">'+tr('open')+' <span>→</span></a><div class="quickActions">'+navs+'</div></div></div></article>'
+ return '<article class="placeCard"><a class="placeMedia" href="place.html?id='+encodeURIComponent(p.id)+'">'+photo(p)+'<span class="categoryBadge">'+esc(categoryName(p.category))+'</span></a><div class="placeBody"><a class="placeTitle" href="place.html?id='+encodeURIComponent(p.id)+'">'+esc(placeName(p))+'</a><div class="placeLocation">'+esc(cityName(p))+'</div><div class="placeFooter"><a class="openPlace" href="place.html?id='+encodeURIComponent(p.id)+'">'+tr('open')+' <span>→</span></a><div class="quickActions">'+navs+'</div></div></div></article>'
 }
 function cityCard(c){return '<a class="cityRow" href="city.html?id='+encodeURIComponent(c.official_code)+'"><div><strong>'+esc(cityName(c))+'</strong><span>'+Number(c.places||0).toLocaleString()+' '+tr('places')+'</span></div><b>→</b></a>'}
 function categoryRail(active=''){return '<div class="categoryRail"><a class="railItem '+(!active?'active':'')+'" href="search.html">'+tr('all')+'</a>'+GROUPS.filter(g=>g[1]).map(g=>'<a class="railItem '+(active===g[1]?'active':'')+'" href="search.html?category='+encodeURIComponent(g[1])+'">'+esc(groupLabel(g))+'</a>').join('')+'</div>'}
@@ -125,7 +125,7 @@ async function home(){
  '<section class="homeHero"><div class="shell heroLayout"><div class="heroContent"><span class="heroOverline">'+tr('heroBadge')+'</span><h1>'+tr('heroTitle')+'</h1><p>'+tr('heroSub')+'</p>'+
  '<form class="heroSearch" onsubmit="return goSearch(event)"><div class="searchInput"><span>⌕</span><input id="q" autocomplete="off" placeholder="'+tr('searchPh')+'"></div><div class="searchCity"><span>⌖</span><select id="city"><option value="">'+tr('cityAll')+'</option>'+cities.cities.map(c=>'<option value="'+esc(c.official_code)+'">'+esc(cityName(c))+'</option>').join('')+'</select></div><button>'+tr('search')+'</button></form>'+
  '<div class="heroStats"><div><strong>'+Number(stats.places||0).toLocaleString()+'</strong><span>'+tr('statPlaces')+'</span></div><div><strong>'+Number(stats.localities_with_places||0).toLocaleString()+'</strong><span>'+tr('statCities')+'</span></div><div><strong>2</strong><span>'+tr('statNav')+'</span></div></div></div>'+
- (heroPhoto?'<a class="heroFeature" href="restaurant.html?id='+encodeURIComponent(heroPhoto.id)+'"><div class="heroFeatureMedia">'+photo(heroPhoto)+'</div><div class="heroFeatureInfo"><span>'+esc(categoryName(heroPhoto.category))+'</span><strong>'+esc(placeName(heroPhoto))+'</strong><small>'+esc(cityName(heroPhoto))+'</small></div></a>':'')+
+ (heroPhoto?'<a class="heroFeature" href="place.html?id='+encodeURIComponent(heroPhoto.id)+'"><div class="heroFeatureMedia">'+photo(heroPhoto)+'</div><div class="heroFeatureInfo"><span>'+esc(categoryName(heroPhoto.category))+'</span><strong>'+esc(placeName(heroPhoto))+'</strong><small>'+esc(cityName(heroPhoto))+'</small></div></a>':'')+
  '</div></section>'+
  categorySection()+
  '<section class="section"><div class="shell"><div class="sectionHead"><div><span class="sectionLabel">02</span><div><h2>'+tr('featured')+'</h2><p>'+tr('featuredSub')+'</p></div></div><a class="sectionLink" href="search.html">'+tr('viewAll')+' →</a></div><div class="placeGrid">'+places.places.slice(0,12).map(placeCard).join('')+'</div></div></section>'+
@@ -187,7 +187,7 @@ async function renderPage(){
  const root=document.getElementById('app');
  document.documentElement.lang=lang;document.documentElement.dir=lang==='he'?'rtl':'ltr';
  root.innerHTML=loading();
- try{const p=document.body.dataset.page;root.innerHTML=await(p==='search'?searchPage():p==='restaurant'?restaurantPage():p==='city'?cityPage():home())}
+ try{const p=document.body.dataset.page;root.innerHTML=await(p==='search'?searchPage():(p==='place'||p==='restaurant')?restaurantPage():p==='city'?cityPage():home())}
  catch(e){console.error(e);root.innerHTML=nav()+'<main class="catalogPage"><div class="shell"><div class="emptyState"><strong>'+tr('notFound')+'</strong></div></div></main>'+footer()}
  document.querySelectorAll('.lang').forEach(b=>{b.classList.toggle('active',b.dataset.lang===lang);b.onclick=()=>setLang(b.dataset.lang)})
 }
