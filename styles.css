@@ -274,3 +274,5 @@ img{max-width:100%;display:block}
   .breadcrumbs{font-size:9px}
   .footerNav{flex-wrap:wrap}
 }
+
+.brokenPhoto{object-fit:contain!important;padding:54px;background:#151920;opacity:.38;filter:grayscale(1)}
