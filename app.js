@@ -41,6 +41,7 @@ function photo(p){return p.photo_url?'<img src="'+esc(p.photo_url)+'" alt="'+esc
 function placeCard(p){return '<a class="card" href="restaurant.html?id='+encodeURIComponent(p.id)+'"><div class="cover">'+photo(p)+'<span class="badge">'+esc(categoryName(p.category))+'</span></div><div class="cardbody"><div class="cardtop"><div><h3>'+esc(placeName(p))+'</h3><div class="meta">'+esc(cityName(p))+'</div></div><span class="liveDot">LIVE</span></div><div class="tags">'+esc(categoryName(p.category))+(p.phone?' · '+esc(p.phone):'')+'</div><div class="dishrow"><span>'+tr('details')+'</span><strong>↗</strong></div></div></a>'}
 function cityCard(c){return '<a class="city" href="city.html?id='+encodeURIComponent(c.official_code)+'"><span class="cityPin">◆</span><strong>'+esc(cityName(c))+'</strong><span>'+Number(c.places||0).toLocaleString()+' '+tr('places')+'</span><b>'+tr('view')+' →</b></a>'}
 function categoryStrip(){return '<section class="section"><div class="shell"><div class="sectionHead"><div><span class="goldKicker">'+tr('categories')+'</span><h2>'+tr('categories')+'</h2><p>'+tr('categoriesSub')+'</p></div></div><div class="categoryGrid">'+GROUPS.map(g=>'<a class="categoryTile" href="search.html?category='+encodeURIComponent(g[1])+'"><span>'+g[0]+'</span><strong>'+esc(groupLabel(g))+'</strong></a>').join('')+'</div></div></section>'}
+function pager(total,page,size,params,base){const pages=Math.max(1,Math.ceil(Number(total||0)/size));if(pages<=1)return'';const label=lang==='he'?'עמוד':lang==='ru'?'Страница':'Page';const prev=lang==='he'?'הקודם':lang==='ru'?'Назад':'Previous';const next=lang==='he'?'הבא':lang==='ru'?'Вперёд':'Next';const href=n=>base+'?'+qs({...params,page:n});return '<nav class="pager">'+(page>1?'<a class="pageBtn" href="'+href(page-1)+'">← '+prev+'</a>':'<span></span>')+'<strong>'+label+' '+page+' / '+pages+'</strong>'+(page<pages?'<a class="pageBtn" href="'+href(page+1)+'">'+next+' →</a>':'<span></span>')+'</nav>'}
 
 async function home(){
  const [stats,cities,places]=await Promise.all([api('stats'),api('cities',{limit:8}),api('places',{limit:9})]);
@@ -48,17 +49,19 @@ async function home(){
 }
 
 async function searchPage(){
- const p=new URLSearchParams(location.search),q=p.get('q')||'',city=p.get('city')||'',category=p.get('category')||'';
- const [cities,places]=await Promise.all([api('cities',{limit:1400}),api('places',{q,city,category,limit:60})]);
- return nav()+'<main class="section"><div class="shell"><div class="sectionHead"><div><span class="goldKicker">SEARCH</span><h2>'+tr('results')+'</h2><p>'+places.count+' '+tr('places')+'</p></div></div><form class="filterPanel" onsubmit="return filterSearch(event)"><input id="fq" value="'+esc(q)+'" placeholder="'+tr('searchPh')+'"><select id="fcity"><option value="">'+tr('cityAll')+'</option>'+cities.cities.map(c=>'<option value="'+esc(c.official_code)+'" '+(city===String(c.official_code)?'selected':'')+'>'+esc(cityName(c))+' ('+Number(c.places||0)+')</option>').join('')+'</select><select id="fcategory"><option value="">'+tr('all')+'</option>'+GROUPS.map(g=>'<option value="'+esc(g[1])+'" '+(category===g[1]?'selected':'')+'>'+g[0]+' '+esc(groupLabel(g))+'</option>').join('')+'</select><button class="primary">'+tr('search')+'</button></form>'+(places.places.length?'<div class="grid">'+places.places.map(placeCard).join('')+'</div>':'<div class="empty">'+tr('notFound')+'</div>')+'</div></main>'+footer()
+ const p=new URLSearchParams(location.search),q=p.get('q')||'',city=p.get('city')||'',category=p.get('category')||'',page=Math.max(1,Number(p.get('page')||1)),size=60,offset=(page-1)*size;
+ const [cities,places]=await Promise.all([api('cities',{limit:1400}),api('places',{q,city,category,limit:size,offset})]);
+ const total=Number(places.total??places.count??0),pages=pager(total,page,size,{q,city,category},'search.html');
+ return nav()+'<main class="section"><div class="shell"><div class="sectionHead"><div><span class="goldKicker">SEARCH</span><h2>'+tr('results')+'</h2><p>'+total.toLocaleString()+' '+tr('places')+'</p></div></div><form class="filterPanel" onsubmit="return filterSearch(event)"><input id="fq" value="'+esc(q)+'" placeholder="'+tr('searchPh')+'"><select id="fcity"><option value="">'+tr('cityAll')+'</option>'+cities.cities.map(c=>'<option value="'+esc(c.official_code)+'" '+(city===String(c.official_code)?'selected':'')+'>'+esc(cityName(c))+' ('+Number(c.places||0)+')</option>').join('')+'</select><select id="fcategory"><option value="">'+tr('all')+'</option>'+GROUPS.map(g=>'<option value="'+esc(g[1])+'" '+(category===g[1]?'selected':'')+'>'+g[0]+' '+esc(groupLabel(g))+'</option>').join('')+'</select><button class="primary">'+tr('search')+'</button></form>'+(places.places.length?'<div class="grid">'+places.places.map(placeCard).join('')+'</div>'+pages:'<div class="empty">'+tr('notFound')+'</div>')+'</div></main>'+footer()
 }
 
 async function cityPage(){
- const id=new URLSearchParams(location.search).get('id')||'';
- const [cities,places]=await Promise.all([api('cities',{limit:1400}),api('places',{city:id,limit:100})]);
+ const p=new URLSearchParams(location.search),id=p.get('id')||'',page=Math.max(1,Number(p.get('page')||1)),size=60,offset=(page-1)*size;
+ const [cities,places]=await Promise.all([api('cities',{limit:1400}),api('places',{city:id,limit:size,offset})]);
  const c=cities.cities.find(x=>String(x.official_code)===String(id));
  if(!c)return nav()+'<main class="section"><div class="shell"><div class="empty">'+tr('notFound')+'</div></div></main>'+footer();
- return nav()+'<main><section class="detailHero"><div class="shell"><div class="cityHero"><span class="goldKicker">LOCAL DIRECTORY</span><h1>'+esc(cityName(c))+'</h1><p>'+Number(c.places||0).toLocaleString()+' '+tr('places')+'</p></div></div></section><section class="section"><div class="shell">'+(places.places.length?'<div class="grid">'+places.places.map(placeCard).join('')+'</div>':'<div class="empty">'+tr('notFound')+'</div>')+'</div></section></main>'+footer()
+ const total=Number(places.total??c.places??0),pages=pager(total,page,size,{id},'city.html');
+ return nav()+'<main><section class="detailHero"><div class="shell"><div class="cityHero"><span class="goldKicker">LOCAL DIRECTORY</span><h1>'+esc(cityName(c))+'</h1><p>'+total.toLocaleString()+' '+tr('places')+'</p></div></div></section><section class="section"><div class="shell">'+(places.places.length?'<div class="grid">'+places.places.map(placeCard).join('')+'</div>'+pages:'<div class="empty">'+tr('notFound')+'</div>')+'</div></section></main>'+footer()
 }
 
 async function restaurantPage(){
