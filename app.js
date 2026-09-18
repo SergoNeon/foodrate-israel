@@ -98,6 +98,7 @@ function cityName(c){const f=lang==='he'?'ישראל':lang==='ru'?'Израил�
 function placeName(p){return lang==='he'?(p.name_he||p.primary_name):lang==='ru'?(p.name_ru||p.name_he||p.name_en||p.primary_name):(p.name_en||p.primary_name||p.name_he)}
 function categoryName(v){const a=CAT[v];return a?(lang==='ru'?a[0]:lang==='he'?a[1]:a[2]):String(v||'').replace(/^.*:/,'').replaceAll('_',' ')}
 function groupLabel(g){return lang==='ru'?g[2]:lang==='he'?g[3]:g[4]}
+function safeHttpUrl(v){try{const u=new URL(String(v||''));return /^https?:$/.test(u.protocol)?u.href:''}catch{return''}}
 function googleUrl(p){return 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent([p.latitude,p.longitude].filter(v=>v!==null&&v!==undefined).join(','))}
 function wazeUrl(p){return 'https://www.waze.com/ul?ll='+encodeURIComponent(String(p.latitude)+','+String(p.longitude))+'&navigate=yes'}
 function hasCoords(p){return p&&p.latitude!=null&&p.longitude!=null&&Number.isFinite(Number(p.latitude))&&Number.isFinite(Number(p.longitude))}
@@ -107,7 +108,7 @@ function footer(){return '<footer class="footer"><div class="shell footerIn"><im
 function loading(){return nav()+'<main><div class="shell"><div class="loadingLine"></div></div></main>'+footer()}
 
 function placeholder(p){return '<div class="photoPlaceholder"><img src="logo.svg" alt=""><span>'+esc(categoryName(p.category))+'</span><small>'+tr('noPhoto')+'</small></div>'}
-function photo(p){return p.photo_url?'<img src="'+esc(p.photo_url)+'" alt="'+esc(placeName(p))+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML=\''+esc(placeholder(p)).replace(/'/g,"\\'")+'\'">':placeholder(p)}
+function photo(p){return p.photo_url?'<img src="'+esc(p.photo_url)+'" alt="'+esc(placeName(p))+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src=\'logo.svg\';this.classList.add(\'brokenPhoto\')">':placeholder(p)}
 
 function placeCard(p){
  const navs=hasCoords(p)?'<a class="quickBtn googleMini" href="'+googleUrl(p)+'" target="_blank" rel="noopener" aria-label="Google Maps">G</a><a class="quickBtn wazeMini" href="'+wazeUrl(p)+'" target="_blank" rel="noopener" aria-label="Waze">W</a>':'';
@@ -165,18 +166,18 @@ function mapEmbed(lat,lon){
 
 async function restaurantPage(){
  const id=new URLSearchParams(location.search).get('id'),r=await api('place',{id});
- const coords=hasCoords(r),photos=(r.photos||[]).filter((x,i,a)=>x?.image_url&&a.findIndex(y=>y.image_url===x.image_url)===i).slice(0,8),address=(r.sources||[]).map(x=>x.address_text).find(Boolean)||'';
+ const coords=hasCoords(r),photos=(r.photos||[]).filter((x,i,a)=>x?.image_url&&a.findIndex(y=>y.image_url===x.image_url)===i).slice(0,8),address=(r.sources||[]).map(x=>x.address_text).find(Boolean)||'',website=safeHttpUrl(r.website);
  const hero=r.photo_url?'<img src="'+esc(r.photo_url)+'" alt="'+esc(placeName(r))+'" referrerpolicy="no-referrer">':placeholder(r);
  const gallery=photos.length>1?'<section class="detailSection"><div class="detailSectionTitle"><h2>'+tr('gallery')+'</h2></div><div class="detailGallery">'+photos.slice(1).map((p,i)=>'<a href="'+esc(p.image_url)+'" target="_blank" rel="noopener"><img src="'+esc(p.image_url)+'" alt="'+esc(placeName(r))+' '+(i+2)+'" loading="lazy" referrerpolicy="no-referrer"></a>').join('')+'</div></section>':'';
  const sources=(r.sources||[]).length?'<details class="sourcesDetails"><summary>'+tr('sources')+'</summary><div class="sourcesInside">'+r.sources.map(s=>'<div><strong>'+esc(String(s.source_code).toUpperCase())+'</strong><span>'+esc(s.source_entity_id||'')+'</span></div>').join('')+'</div></details>':'';
  return nav()+'<main class="detailPage"><div class="shell"><div class="breadcrumbs"><a href="search.html">'+tr('navExplore')+'</a><span>/</span><span>'+esc(cityName(r))+'</span><span>/</span><strong>'+esc(placeName(r))+'</strong></div>'+
  '<section class="businessHero"><div class="businessMedia">'+hero+'</div><div class="businessSummary"><span class="businessCategory">'+esc(categoryName(r.category))+'</span><h1>'+esc(placeName(r))+'</h1><p class="businessCity">'+esc(cityName(r))+'</p>'+(address?'<p class="businessAddress">'+esc(address)+'</p>':'')+
- '<div class="businessActions">'+(r.phone?'<a class="actionPrimary" href="tel:'+esc(r.phone)+'">'+tr('phone')+'</a>':'')+(r.website?'<a class="actionSecondary" href="'+esc(r.website)+'" target="_blank" rel="noopener">'+tr('website')+'</a>':'')+'</div>'+
+ '<div class="businessActions">'+(r.phone?'<a class="actionPrimary" href="tel:'+esc(r.phone)+'">'+tr('phone')+'</a>':'')+(website?'<a class="actionSecondary" href="'+esc(website)+'" target="_blank" rel="noopener">'+tr('website')+'</a>':'')+'</div>'+
  '<div class="routeBlock"><span>'+tr('navigate')+'</span><div>'+(coords?'<a class="routeGoogle" href="'+googleUrl(r)+'" target="_blank" rel="noopener"><b>G</b>'+tr('googleMaps')+'</a><a class="routeWaze" href="'+wazeUrl(r)+'" target="_blank" rel="noopener"><b>W</b>'+tr('waze')+'</a>':'')+'</div></div>'+
  '</div></section>'+
  (coords?'<section class="detailSection"><div class="detailSectionTitle"><h2>'+tr('map')+'</h2><span>'+Number(r.latitude).toFixed(5)+', '+Number(r.longitude).toFixed(5)+'</span></div><div class="mapFrame"><iframe src="'+mapEmbed(r.latitude,r.longitude)+'" loading="lazy" referrerpolicy="no-referrer"></iframe></div></section>':'')+
  gallery+
- '<section class="detailSection businessInfoSection"><div class="detailSectionTitle"><h2>'+tr('info')+'</h2></div><div class="infoTable">'+(r.phone?'<div><span>'+tr('phone')+'</span><a href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a></div>':'')+(r.website?'<div><span>'+tr('website')+'</span><a href="'+esc(r.website)+'" target="_blank" rel="noopener">'+esc(r.website)+'</a></div>':'')+(address?'<div><span>'+tr('address')+'</span><strong>'+esc(address)+'</strong></div>':'')+(coords?'<div><span>'+tr('coordinates')+'</span><strong>'+Number(r.latitude).toFixed(6)+', '+Number(r.longitude).toFixed(6)+'</strong></div>':'')+'</div>'+sources+'</section>'+
+ '<section class="detailSection businessInfoSection"><div class="detailSectionTitle"><h2>'+tr('info')+'</h2></div><div class="infoTable">'+(r.phone?'<div><span>'+tr('phone')+'</span><a href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a></div>':'')+(website?'<div><span>'+tr('website')+'</span><a href="'+esc(website)+'" target="_blank" rel="noopener">'+esc(website)+'</a></div>':'')+(address?'<div><span>'+tr('address')+'</span><strong>'+esc(address)+'</strong></div>':'')+(coords?'<div><span>'+tr('coordinates')+'</span><strong>'+Number(r.latitude).toFixed(6)+', '+Number(r.longitude).toFixed(6)+'</strong></div>':'')+'</div>'+sources+'</section>'+
  '</div></main>'+footer()
 }
 
