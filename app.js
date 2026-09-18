@@ -29,7 +29,7 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const qs=o=>new URLSearchParams(Object.entries(o).filter(([,v])=>v!==''&&v!=null)).toString();
 async function api(route,params={}){const r=await fetch(API_BASE+'/'+route+(Object.keys(params).length?'?'+qs(params):''));if(!r.ok)throw new Error('API '+r.status);return r.json()}
 function setLang(l){lang=l;localStorage.setItem('foodrate-lang',l);document.documentElement.lang=l;document.documentElement.dir=l==='he'?'rtl':'ltr';renderPage()}
-function cityName(c){return lang==='he'?(c.name_he||c.city_he||c.name_en||c.city_en):lang==='ru'?(c.name_ru||c.city_ru||c.name_en||c.city_en||c.name_he||c.city_he):(c.name_en||c.city_en||c.name_he||c.city_he)}
+function cityName(c){const fallback=lang==='he'?'ישראל':lang==='ru'?'Израиль':'Israel';return lang==='he'?(c.name_he||c.city_he||c.name_en||c.city_en||fallback):lang==='ru'?(c.name_ru||c.city_ru||c.name_en||c.city_en||c.name_he||c.city_he||fallback):(c.name_en||c.city_en||c.name_he||c.city_he||fallback)}
 function placeName(p){return lang==='he'?(p.name_he||p.primary_name):lang==='ru'?(p.name_ru||p.name_he||p.name_en||p.primary_name):(p.name_en||p.primary_name||p.name_he)}
 function categoryName(v){const a=CAT[v];return a?(lang==='ru'?a[0]:lang==='he'?a[1]:a[2]):String(v||'').replace(/^.*:/,'').replaceAll('_',' ')}
 function icon(v){if(v==='amenity:restaurant')return'🍽️';if(v==='amenity:cafe')return'☕';if(v==='amenity:fast_food')return'🥙';if(v==='shop:bakery')return'🥐';if(v?.startsWith('shop:'))return'🛍️';if(v==='amenity:pharmacy')return'💊';if(v==='amenity:fuel')return'⛽';if(v==='amenity:bar'||v==='amenity:pub')return'🍸';if(v?.startsWith('tourism:'))return'🏨';return'📍'}
