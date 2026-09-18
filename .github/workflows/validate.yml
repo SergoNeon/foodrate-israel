@@ -1,0 +1,27 @@
+name: Validate FoodRate site
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check data.js
+      - name: Verify required pages
+        run: |
+          test -f index.html
+          test -f search.html
+          test -f city.html
+          test -f restaurant.html
+          test -f styles.css
