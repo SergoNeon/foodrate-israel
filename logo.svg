@@ -1,15 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 190" role="img" aria-label="Israel Places">
-<defs>
- <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff303c"/><stop offset=".48" stop-color="#246bff"/><stop offset="1" stop-color="#d9ad52"/></linearGradient>
- <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0b0"/><stop offset=".45" stop-color="#e1ba61"/><stop offset="1" stop-color="#9c6b17"/></linearGradient>
- <filter id="ds" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#000" flood-opacity=".55"/></filter>
-</defs>
-<g filter="url(#ds)">
- <path d="M91 17c-39 0-70 31-70 70 0 54 70 89 70 89s70-35 70-89c0-39-31-70-70-70z" fill="#080b12" stroke="url(#rg)" stroke-width="7"/>
- <circle cx="91" cy="83" r="31" fill="none" stroke="url(#gold)" stroke-width="5"/>
- <path d="M78 83l9 9 18-21" fill="none" stroke="url(#gold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 120" role="img" aria-label="Israel Places">
+<defs><linearGradient id="pin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2f6df6"/><stop offset=".55" stop-color="#d83b43"/><stop offset="1" stop-color="#d4ad62"/></linearGradient></defs>
+<g transform="translate(4,4)">
+ <path d="M50 4C24.6 4 4 24.6 4 50c0 34.6 46 62 46 62s46-27.4 46-62C96 24.6 75.4 4 50 4z" fill="#101318" stroke="url(#pin)" stroke-width="5"/>
+ <circle cx="50" cy="50" r="17" fill="none" stroke="#d4ad62" stroke-width="5"/>
 </g>
-<text x="190" y="83" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="900" letter-spacing="1.5" fill="#f7f8fb">ISRAEL</text>
-<text x="190" y="139" font-family="Arial,Helvetica,sans-serif" font-size="57" font-weight="900" letter-spacing="1.5" fill="url(#gold)">PLACES</text>
-<text x="195" y="170" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="4.6" fill="#8190aa">BUSINESS & PLACES DIRECTORY</text>
+<text x="124" y="55" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="900" letter-spacing="1.2" fill="#f4f6f8">ISRAEL</text>
+<text x="124" y="98" font-family="Arial,Helvetica,sans-serif" font-size="42" font-weight="900" letter-spacing="1.2" fill="#d4ad62">PLACES</text>
+<text x="404" y="98" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="700" letter-spacing="2.4" fill="#7c8794">BUSINESS DIRECTORY</text>
 </svg>
