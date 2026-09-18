@@ -1,0 +1,1 @@
+# FoodRate Israel live preview\n\nTemporary browser preview (no download):\n\nhttps://htmlpreview.github.io/?https://github.com/SergoNeon/foodrate-israel/blob/main/index.html\n\nProduction hosting will use a dedicated deployment provider.\n
