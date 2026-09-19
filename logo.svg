@@ -1,12 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 96" role="img" aria-label="Israel Places">
-<rect width="620" height="96" fill="none"/>
-<g transform="translate(4 8)">
-  <path d="M38 4C19.2 4 4 19.2 4 38c0 25.6 34 46 34 46s34-20.4 34-46C72 19.2 56.8 4 38 4z" fill="#11141a" stroke="#cfa85b" stroke-width="4"/>
-  <circle cx="38" cy="38" r="12" fill="#2d63d8"/>
-  <circle cx="38" cy="38" r="5" fill="#f4f5f7"/>
-  <path d="M60 66h14" stroke="#b93b45" stroke-width="4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 90" role="img" aria-label="Israel Places">
+<rect width="560" height="90" fill="none"/>
+<g transform="translate(4 9)">
+ <path d="M33 2C15.9 2 2 15.9 2 33c0 23 31 41 31 41s31-18 31-41C64 15.9 50.1 2 33 2z" fill="#171a20"/>
+ <circle cx="33" cy="33" r="11" fill="#fff"/>
+ <circle cx="33" cy="33" r="5" fill="#b88a34"/>
 </g>
-<text x="96" y="43" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" letter-spacing="1" fill="#f4f5f7">ISRAEL</text>
-<text x="96" y="77" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="900" letter-spacing="1" fill="#cfa85b">PLACES</text>
-<text x="314" y="76" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="700" letter-spacing="2.2" fill="#727b87">BUSINESS DIRECTORY</text>
+<text x="86" y="40" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="900" letter-spacing=".8" fill="#171a20">ISRAEL</text>
+<text x="86" y="71" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="900" letter-spacing=".8" fill="#b88a34">PLACES</text>
+<text x="292" y="70" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" letter-spacing="1.7" fill="#7a828d">PLACES & BUSINESS DIRECTORY</text>
 </svg>
