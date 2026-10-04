@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10151f" />
+  <title>TM Legal Office — Practice Management Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="demo-banner"><span data-i18n="demoBanner">DEMO ENVIRONMENT • Sample data only • Do not upload real client information</span></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">TM</div>
+        <div>
+          <strong>TM Legal Office</strong>
+          <span data-i18n="practiceManagement">Practice Management</span>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="icon">⌂</span><span data-i18n="dashboard">Dashboard</span></button>
+        <button class="nav-item" data-page="clients"><span class="icon">👥</span><span data-i18n="clients">Clients</span><span class="nav-count" id="clientCountBadge">128</span></button>
+        <button class="nav-item" data-page="matters"><span class="icon">⚖</span><span data-i18n="matters">Cases & Matters</span><span class="nav-count">42</span></button>
+        <button class="nav-item" data-page="calendar"><span class="icon">□</span><span data-i18n="calendar">Calendar</span></button>
+        <button class="nav-item" data-page="tasks"><span class="icon">✓</span><span data-i18n="tasks">Tasks</span><span class="nav-count danger">7</span></button>
+        <button class="nav-item" data-page="documents"><span class="icon">▤</span><span data-i18n="documents">Documents</span></button>
+        <button class="nav-item" data-page="billing"><span class="icon">₪</span><span data-i18n="timeBilling">Time & Billing</span></button>
+        <button class="nav-item" data-page="reports"><span class="icon">▥</span><span data-i18n="reports">Reports</span></button>
+      </nav>
+
+      <div class="sidebar-section-label" data-i18n="workspace">WORKSPACE</div>
+      <nav class="nav compact">
+        <button class="nav-item" data-page="intake"><span class="icon">＋</span><span data-i18n="clientIntake">Client Intake</span></button>
+        <button class="nav-item" data-page="contacts"><span class="icon">☎</span><span data-i18n="contacts">Contacts</span></button>
+        <button class="nav-item" data-page="settings"><span class="icon">⚙</span><span data-i18n="settings">Settings</span></button>
+      </nav>
+
+      <div class="secure-box">
+        <div class="secure-icon">◈</div>
+        <div><strong data-i18n="secureWorkspace">Secure workspace</strong><span data-i18n="secureNote">Role-based access • Audit log • 2FA ready</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Menu">☰</button>
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input id="globalSearch" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Search clients, cases, documents…" />
+          <kbd>⌘ K</kbd>
+        </div>
+        <div class="top-actions">
+          <button class="lang-switch" id="langSwitch" aria-label="Change language"><span id="langPrimary">EN</span><span>/</span><span id="langSecondary">RU</span></button>
+          <button class="icon-btn" title="Notifications">♢<span class="notification-dot"></span></button>
+          <button class="primary-btn" id="newClientBtn">＋ <span data-i18n="newClient">New client</span></button>
+          <button class="avatar-btn" aria-label="Profile">TM</button>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Dashboard -->
+        <section class="page active" id="page-dashboard">
+          <div class="page-heading">
+            <div><p class="eyebrow" data-i18n="sundayOffice">SUNDAY • OFFICE OVERVIEW</p><h1 data-i18n="goodMorning">Good morning, Tomer.</h1><p data-i18n="dashboardSubtitle">Here is what needs your attention today.</p></div>
+            <div class="heading-actions"><button class="secondary-btn" data-nav="calendar">▣ <span data-i18n="viewCalendar">View calendar</span></button><button class="primary-btn" id="quickTimeBtn">◷ <span data-i18n="logTime">Log time</span></button></div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span data-i18n="activeMatters">Active matters</span><span class="stat-icon">⚖</span></div><strong>42</strong><small class="positive">+4 <span data-i18n="thisMonth">this month</span></small></article>
+            <article class="stat-card"><div class="stat-top"><span data-i18n="todayAppointments">Today's appointments</span><span class="stat-icon">□</span></div><strong>6</strong><small>09:30 — 17:00</small></article>
+            <article class="stat-card"><div class="stat-top"><span data-i18n="billableHours">Billable hours</span><span class="stat-icon">◷</span></div><strong>31.4h</strong><small><span data-i18n="weekTarget">Week target</span> 40h</small><div class="progress"><span style="width:78%"></span></div></article>
+            <article class="stat-card"><div class="stat-top"><span data-i18n="outstanding">Outstanding</span><span class="stat-icon">₪</span></div><strong>₪38,240</strong><small class="warning">8 <span data-i18n="openInvoices">open invoices</span></small></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel schedule-panel">
+              <div class="panel-head"><div><h2 data-i18n="todaySchedule">Today's schedule</h2><p data-i18n="octoberDate">Sunday, October 4</p></div><button class="text-btn" data-nav="calendar"><span data-i18n="fullCalendar">Full calendar</span> →</button></div>
+              <div class="timeline">
+                <div class="timeline-row"><time>09:30</time><div class="time-line"></div><div class="appointment court"><div><span class="tag" data-i18n="court">COURT</span><strong>Levi v. Orion Ltd.</strong><small data-i18n="districtCourt">Tel Aviv District Court • Hall 3</small></div><span class="duration">90m</span></div></div>
+                <div class="timeline-row"><time>12:00</time><div class="time-line"></div><div class="appointment client"><div><span class="tag" data-i18n="clientMeeting">CLIENT</span><strong>Daniel Cohen</strong><small data-i18n="contractReview">Contract review • Office</small></div><span class="duration">60m</span></div></div>
+                <div class="timeline-row"><time>14:30</time><div class="time-line"></div><div class="appointment call"><div><span class="tag" data-i18n="call">CALL</span><strong>Yael Ben-Ami</strong><small data-i18n="strategyCall">Case strategy • Video call</small></div><span class="duration">45m</span></div></div>
+                <div class="timeline-row"><time>16:00</time><div class="time-line"></div><div class="appointment internal"><div><span class="tag" data-i18n="internal">INTERNAL</span><strong data-i18n="weeklyReview">Weekly matter review</strong><small data-i18n="teamMeeting">Team meeting • Conference room</small></div><span class="duration">60m</span></div></div>
+              </div>
+            </section>
+
+            <section class="panel tasks-panel">
+              <div class="panel-head"><div><h2 data-i18n="priorityTasks">Priority tasks</h2><p><span class="danger-text">7</span> <span data-i18n="needAttention">need attention</span></p></div><button class="text-btn" data-nav="tasks"><span data-i18n="allTasks">All tasks</span> →</button></div>
+              <div class="task-list">
+                <label class="task-row"><input type="checkbox"><span class="task-check"></span><div><strong data-i18n="fileResponse">File response to motion</strong><small>Levi v. Orion Ltd. • <span class="danger-text" data-i18n="dueToday">Due today</span></small></div><span class="priority high" data-i18n="high">High</span></label>
+                <label class="task-row"><input type="checkbox"><span class="task-check"></span><div><strong data-i18n="reviewAgreement">Review settlement agreement</strong><small>Cohen matter • <span data-i18n="dueTomorrow">Due tomorrow</span></small></div><span class="priority medium" data-i18n="medium">Medium</span></label>
+                <label class="task-row"><input type="checkbox"><span class="task-check"></span><div><strong data-i18n="prepareAffidavit">Prepare client affidavit</strong><small>Ben-Ami matter • Oct 6</small></div><span class="priority high" data-i18n="high">High</span></label>
+                <label class="task-row"><input type="checkbox"><span class="task-check"></span><div><strong data-i18n="sendInvoice">Send September invoice</strong><small>Greenstone Holdings • Oct 7</small></div><span class="priority low" data-i18n="low">Low</span></label>
+              </div>
+            </section>
+          </div>
+
+          <div class="dashboard-grid lower">
+            <section class="panel">
+              <div class="panel-head"><div><h2 data-i18n="recentMatters">Recent matters</h2><p data-i18n="recentlyAccessed">Recently accessed cases</p></div><button class="text-btn" data-nav="matters"><span data-i18n="viewAll">View all</span> →</button></div>
+              <div class="matter-list">
+                <button class="matter-row" data-nav="matters"><span class="matter-code">L-2618</span><div><strong>Levi v. Orion Ltd.</strong><small data-i18n="commercialLitigation">Commercial litigation</small></div><span class="status active" data-i18n="active">Active</span><span class="matter-next">Oct 4</span></button>
+                <button class="matter-row" data-nav="matters"><span class="matter-code">C-2614</span><div><strong>Cohen — Share Purchase</strong><small data-i18n="corporate">Corporate</small></div><span class="status active" data-i18n="active">Active</span><span class="matter-next">Oct 7</span></button>
+                <button class="matter-row" data-nav="matters"><span class="matter-code">B-2607</span><div><strong>Ben-Ami Employment</strong><small data-i18n="employment">Employment</small></div><span class="status waiting" data-i18n="waiting">Waiting</span><span class="matter-next">Oct 12</span></button>
+              </div>
+            </section>
+
+            <section class="panel activity-panel">
+              <div class="panel-head"><div><h2 data-i18n="recentActivity">Recent activity</h2><p data-i18n="officeFeed">Office activity feed</p></div></div>
+              <div class="activity-list">
+                <div class="activity"><span class="activity-icon">▤</span><div><strong data-i18n="documentUploaded">Document uploaded</strong><p>“Defense_Response_v4.pdf”</p><small>11 min • Sarah</small></div></div>
+                <div class="activity"><span class="activity-icon">◷</span><div><strong data-i18n="timeEntryAdded">Time entry added</strong><p>1.8h • Levi v. Orion Ltd.</p><small>34 min • Tomer</small></div></div>
+                <div class="activity"><span class="activity-icon">👤</span><div><strong data-i18n="newLeadCreated">New lead created</strong><p>Michael Rosen • Corporate</p><small>1h • Website intake</small></div></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Clients -->
+        <section class="page" id="page-clients">
+          <div class="page-heading"><div><p class="eyebrow" data-i18n="relationshipManagement">RELATIONSHIP MANAGEMENT</p><h1 data-i18n="clients">Clients</h1><p data-i18n="clientsSubtitle">Contacts, communication history and linked matters in one place.</p></div><button class="primary-btn open-client-modal">＋ <span data-i18n="newClient">New client</span></button></div>
+          <section class="panel table-panel">
+            <div class="toolbar"><div class="segmented"><button class="active" data-i18n="all">All</button><button data-i18n="active">Active</button><button data-i18n="leads">Leads</button></div><input class="table-search" id="clientSearch" type="search" data-i18n-placeholder="searchClients" placeholder="Search clients…"></div>
+            <div class="table-wrap"><table><thead><tr><th data-i18n="client">Client</th><th data-i18n="type">Type</th><th data-i18n="openMatters">Open matters</th><th data-i18n="lastContact">Last contact</th><th data-i18n="balance">Balance</th><th></th></tr></thead><tbody id="clientsTableBody">
+              <tr><td><div class="person"><span class="mini-avatar">DC</span><div><strong>Daniel Cohen</strong><small>daniel.cohen@example.com</small></div></div></td><td><span class="chip" data-i18n="individual">Individual</span></td><td>2</td><td data-i18n="today">Today</td><td>₪0</td><td><button class="kebab">•••</button></td></tr>
+              <tr><td><div class="person"><span class="mini-avatar">YB</span><div><strong>Yael Ben-Ami</strong><small>yael.ba@example.com</small></div></div></td><td><span class="chip" data-i18n="individual">Individual</span></td><td>1</td><td data-i18n="yesterday">Yesterday</td><td>₪4,800</td><td><button class="kebab">•••</button></td></tr>
+              <tr><td><div class="person"><span class="mini-avatar">GH</span><div><strong>Greenstone Holdings Ltd.</strong><small>legal@greenstone.example</small></div></div></td><td><span class="chip company" data-i18n="company">Company</span></td><td>5</td><td>Oct 1</td><td>₪12,600</td><td><button class="kebab">•••</button></td></tr>
+              <tr><td><div class="person"><span class="mini-avatar">MR</span><div><strong>Michael Rosen</strong><small>m.rosen@example.com</small></div></div></td><td><span class="chip lead" data-i18n="lead">Lead</span></td><td>0</td><td>Sep 30</td><td>—</td><td><button class="kebab">•••</button></td></tr>
+            </tbody></table></div>
+          </section>
+        </section>
+
+        <!-- Matters -->
+        <section class="page" id="page-matters">
+          <div class="page-heading"><div><p class="eyebrow" data-i18n="matterManagement">MATTER MANAGEMENT</p><h1 data-i18n="matters">Cases & Matters</h1><p data-i18n="mattersSubtitle">Deadlines, documents, notes, billing and client communication by case.</p></div><button class="primary-btn">＋ <span data-i18n="newMatter">New matter</span></button></div>
+          <div class="matter-cards">
+            <article class="matter-card-feature"><div class="matter-card-top"><div><span class="matter-code">L-2618</span><h3>Levi v. Orion Ltd.</h3><p data-i18n="commercialLitigation">Commercial litigation</p></div><span class="status active" data-i18n="active">Active</span></div><div class="matter-meta"><span><small data-i18n="client">Client</small><strong>David Levi</strong></span><span><small data-i18n="responsibleLawyer">Responsible lawyer</small><strong>Tomer Moshe</strong></span><span><small data-i18n="nextDeadline">Next deadline</small><strong class="danger-text">Today, 17:00</strong></span><span><small data-i18n="unbilled">Unbilled</small><strong>₪8,460</strong></span></div><div class="matter-actions"><button class="secondary-btn" data-i18n="openMatter">Open matter</button><button class="ghost-btn">▤ 18</button><button class="ghost-btn">✓ 6</button></div></article>
+            <article class="matter-card-feature"><div class="matter-card-top"><div><span class="matter-code">C-2614</span><h3>Cohen — Share Purchase</h3><p data-i18n="corporate">Corporate</p></div><span class="status active" data-i18n="active">Active</span></div><div class="matter-meta"><span><small data-i18n="client">Client</small><strong>Daniel Cohen</strong></span><span><small data-i18n="responsibleLawyer">Responsible lawyer</small><strong>Tomer Moshe</strong></span><span><small data-i18n="nextDeadline">Next deadline</small><strong>Oct 7</strong></span><span><small data-i18n="unbilled">Unbilled</small><strong>₪3,240</strong></span></div><div class="matter-actions"><button class="secondary-btn" data-i18n="openMatter">Open matter</button><button class="ghost-btn">▤ 9</button><button class="ghost-btn">✓ 3</button></div></article>
+            <article class="matter-card-feature"><div class="matter-card-top"><div><span class="matter-code">B-2607</span><h3>Ben-Ami Employment</h3><p data-i18n="employment">Employment</p></div><span class="status waiting" data-i18n="waiting">Waiting</span></div><div class="matter-meta"><span><small data-i18n="client">Client</small><strong>Yael Ben-Ami</strong></span><span><small data-i18n="responsibleLawyer">Responsible lawyer</small><strong>Tomer Moshe</strong></span><span><small data-i18n="nextDeadline">Next deadline</small><strong>Oct 12</strong></span><span><small data-i18n="unbilled">Unbilled</small><strong>₪1,920</strong></span></div><div class="matter-actions"><button class="secondary-btn" data-i18n="openMatter">Open matter</button><button class="ghost-btn">▤ 12</button><button class="ghost-btn">✓ 2</button></div></article>
+          </div>
+        </section>
+
+        <!-- Calendar -->
+        <section class="page" id="page-calendar">
+          <div class="page-heading"><div><p class="eyebrow" data-i18n="scheduleDeadlines">SCHEDULE & DEADLINES</p><h1 data-i18n="calendar">Calendar</h1><p data-i18n="calendarSubtitle">Court dates, client meetings, filing deadlines and internal events.</p></div><button class="primary-btn">＋ <span data-i18n="newEvent">New event</span></button></div>
+          <section class="panel calendar-panel">
+            <div class="calendar-head"><button class="ghost-btn">‹</button><h2>October 2026</h2><button class="ghost-btn">›</button><div class="calendar-spacer"></div><div class="segmented"><button data-i18n="day">Day</button><button data-i18n="week">Week</button><button class="active" data-i18n="month">Month</button></div></div>
+            <div class="month-grid week-days"><span data-i18n="sun">Sun</span><span data-i18n="mon">Mon</span><span data-i18n="tue">Tue</span><span data-i18n="wed">Wed</span><span data-i18n="thu">Thu</span><span data-i18n="fri">Fri</span><span data-i18n="sat">Sat</span></div>
+            <div class="month-grid month-days" id="monthGrid"></div>
+          </section>
+        </section>
+
+        <!-- Tasks -->
+        <section class="page" id="page-tasks">
+          <div class="page-heading"><div><p class="eyebrow" data-i18n="workflow">WORKFLOW</p><h1 data-i18n="tasks">Tasks</h1><p data-i18n="tasksSubtitle">Track every legal and administrative action before it becomes a deadline.</p></div><button class="primary-btn">＋ <span data-i18n="newTask">New task</span></button></div>
+          <div class="kanban">
+            <section class="kanban-col"><div class="kanban-title"><span data-i18n="todo">To do</span><b>4</b></div><article class="kanban-card high-border"><span class="priority high" data-i18n="high">High</span><h3 data-i18n="fileResponse">File response to motion</h3><p>Levi v. Orion Ltd.</p><footer><span class="danger-text" data-i18n="dueToday">Due today</span><span>TM</span></footer></article><article class="kanban-card"><span class="priority medium" data-i18n="medium">Medium</span><h3 data-i18n="reviewAgreement">Review settlement agreement</h3><p>Cohen matter</p><footer><span data-i18n="dueTomorrow">Due tomorrow</span><span>TM</span></footer></article></section>
+            <section class="kanban-col"><div class="kanban-title"><span data-i18n="inProgress">In progress</span><b>2</b></div><article class="kanban-card"><span class="priority high" data-i18n="high">High</span><h3 data-i18n="prepareAffidavit">Prepare client affidavit</h3><p>Ben-Ami matter</p><footer><span>Oct 6</span><span>SK</span></footer></article><article class="kanban-card"><span class="priority low" data-i18n="low">Low</span><h3 data-i18n="researchPrecedent">Research recent precedent</h3><p>Levi v. Orion Ltd.</p><footer><span>Oct 8</span><span>TM</span></footer></article></section>
+            <section class="kanban-col"><div class="kanban-title"><span data-i18n="waiting">Waiting</span><b>3</b></div><article class="kanban-card"><span class="priority medium" data-i18n="medium">Medium</span><h3 data-i18n="clientDocuments">Client documents</h3><p>Greenstone Holdings</p><footer><span data-i18n="waitingClient">Waiting for client</span><span>SK</span></footer></article></section>
+            <section class="kanban-col"><div class="kanban-title"><span data-i18n="completed">Completed</span><b>12</b></div><article class="kanban-card done"><span class="priority low" data-i18n="low">Low</span><h3 data-i18n="sendInvoice">Send September invoice</h3><p>Levi v. Orion Ltd.</p><footer><span>Oct 3</span><span>TM</span></footer></article></section>
+          </div>
+        </section>
+
+        <!-- Documents -->
+        <section class="page" id="page-documents">
+          <div class="page-heading"><div><p class="eyebrow" data-i18n="documentManagement">DOCUMENT MANAGEMENT</p><h1 data-i18n="documents">Documents</h1><p data-i18n="documentsSubtitle">Central legal document library with matter links, versions and access history.</p></div><button class="primary-btn">↑ <span data-i18n="uploadDocument">Upload document</span></button></div>
+          <section class="panel table-panel"><div class="toolbar"><input class="table-search wide" type="search" data-i18n-placeholder="searchDocuments" placeholder="Search documents…"><div class="segmented"><button class="active" data-i18n="recent">Recent</button><button data-i18n="byMatter">By matter</button><button data-i18n="shared">Shared</button></div></div><div class="table-wrap"><table><thead><tr><th data-i18n="document">Document</th><th data-i18n="matter">Matter</th><th data-i18n="version">Version</th><th data-i18n="modified">Modified</th><th data-i18n="owner">Owner</th><th></th></tr></thead><tbody><tr><td><div class="doc-name"><span>PDF</span><strong>Defense_Response_v4.pdf</strong></div></td><td>Levi v. Orion Ltd.</td><td>v4</td><td data-i18n="minutesAgo11">11 min ago</td><td>Sarah K.</td><td><button class="kebab">•••</button></td></tr><tr><td><div class="doc-name word"><span>DOC</span><strong>Share_Purchase_Agreement.docx</strong></div></td><td>Cohen — Share Purchase</td><td>v7</td><td data-i18n="yesterday">Yesterday</td><td>Tomer M.</td><td><button class="kebab">•••</button></td></tr><tr><td><div class="doc-name"><span>PDF</span><strong>Employment_Affidavit_Draft.pdf</strong></div></td><td>Ben-Ami Employment</td><td>v2</td><td>Oct 2</td><td>Sarah K.</td><td><button class="kebab">•••</button></td></tr></tbody></table></div></section>
+        </section>
+
+        <!-- Billing -->
+        <section class="page" id="page-billing">
+          <div class="page-heading"><div><p class="eyebrow" data-i18n="finance">FINANCE</p><h1 data-i18n="timeBilling">Time & Billing</h1><p data-i18n="billingSubtitle">Time tracking, expenses, invoices, collections and client balances.</p></div><div class="heading-actions"><button class="secondary-btn">＋ <span data-i18n="expense">Expense</span></button><button class="primary-btn">◷ <span data-i18n="logTime">Log time</span></button></div></div>
+          <div class="stats-grid billing-stats"><article class="stat-card"><span data-i18n="unbilledTime">Unbilled time</span><strong>₪24,980</strong><small>68.2h</small></article><article class="stat-card"><span data-i18n="draftInvoices">Draft invoices</span><strong>₪18,300</strong><small>5 <span data-i18n="invoices">invoices</span></small></article><article class="stat-card"><span data-i18n="outstanding">Outstanding</span><strong>₪38,240</strong><small>8 <span data-i18n="openInvoices">open invoices</span></small></article><article class="stat-card"><span data-i18n="collectedMonth">Collected this month</span><strong>₪76,420</strong><small class="positive">+12.4%</small></article></div>
+          <div class="dashboard-grid"><section class="panel"><div class="panel-head"><div><h2 data-i18n="todayTimeEntries">Today's time entries</h2><p>6.4h <span data-i18n="recorded">recorded</span></p></div><button class="text-btn" data-i18n="addEntry">+ Add entry</button></div><div class="time-entries"><div><span>1.8h</span><strong data-i18n="draftMotion">Draft response to motion</strong><small>Levi v. Orion Ltd. • ₪620/h</small><b>₪1,116</b></div><div><span>1.2h</span><strong data-i18n="clientConference">Client conference</strong><small>Cohen — Share Purchase • ₪620/h</small><b>₪744</b></div><div><span>2.4h</span><strong data-i18n="documentReview">Document review</strong><small>Greenstone Holdings • ₪620/h</small><b>₪1,488</b></div><div><span>1.0h</span><strong data-i18n="legalResearch">Legal research</strong><small>Ben-Ami Employment • ₪620/h</small><b>₪620</b></div></div></section><section class="panel"><div class="panel-head"><div><h2 data-i18n="invoiceStatus">Invoice status</h2><p data-i18n="currentMonth">Current month</p></div></div><div class="invoice-chart"><div class="donut"><span>₪132k<small data-i18n="total">total</small></span></div><div class="legend"><p><i class="paid-dot"></i><span data-i18n="paid">Paid</span><b>58%</b></p><p><i class="out-dot"></i><span data-i18n="outstanding">Outstanding</span><b>29%</b></p><p><i class="draft-dot"></i><span data-i18n="draft">Draft</span><b>13%</b></p></div></div></section></div>
+        </section>
+
+        <!-- Reports -->
+        <section class="page" id="page-reports"><div class="page-heading"><div><p class="eyebrow" data-i18n="insights">INSIGHTS</p><h1 data-i18n="reports">Reports</h1><p data-i18n="reportsSubtitle">Firm performance, matter profitability, utilization and collections.</p></div><button class="secondary-btn" data-i18n="export">Export</button></div><div class="report-grid"><article class="report-card"><span>↗</span><h3 data-i18n="revenueReport">Revenue report</h3><p data-i18n="revenueDesc">Billed, collected and outstanding by period.</p></article><article class="report-card"><span>◷</span><h3 data-i18n="utilizationReport">Utilization</h3><p data-i18n="utilizationDesc">Billable hours, targets and team performance.</p></article><article class="report-card"><span>⚖</span><h3 data-i18n="matterProfitability">Matter profitability</h3><p data-i18n="profitabilityDesc">Revenue, cost and realization by case.</p></article><article class="report-card"><span>👥</span><h3 data-i18n="clientAnalysis">Client analysis</h3><p data-i18n="clientAnalysisDesc">Top clients, source, retention and balances.</p></article></div></section>
+
+        <!-- Intake -->
+        <section class="page" id="page-intake"><div class="page-heading"><div><p class="eyebrow" data-i18n="crm">CRM & INTAKE</p><h1 data-i18n="clientIntake">Client Intake</h1><p data-i18n="intakeSubtitle">Capture leads, run conflict checks and convert approved prospects into clients.</p></div><button class="primary-btn">＋ <span data-i18n="newLead">New lead</span></button></div><div class="intake-pipeline"><div><span data-i18n="newInquiry">New inquiry</span><b>8</b></div><div><span data-i18n="conflictCheck">Conflict check</span><b>3</b></div><div><span data-i18n="consultation">Consultation</span><b>5</b></div><div><span data-i18n="engagementSent">Engagement sent</span><b>2</b></div><div><span data-i18n="converted">Converted</span><b>11</b></div></div><section class="panel intake-card"><h2 data-i18n="intakeWorkflow">Professional intake workflow</h2><div class="workflow-steps"><span>1<strong data-i18n="leadDetails">Lead details</strong></span><i>→</i><span>2<strong data-i18n="conflictCheck">Conflict check</strong></span><i>→</i><span>3<strong data-i18n="consultation">Consultation</strong></span><i>→</i><span>4<strong data-i18n="engagement">Engagement</strong></span><i>→</i><span>5<strong data-i18n="openMatter">Open matter</strong></span></div></section></section>
+
+        <!-- Contacts -->
+        <section class="page" id="page-contacts"><div class="page-heading"><div><p class="eyebrow" data-i18n="directory">DIRECTORY</p><h1 data-i18n="contacts">Contacts</h1><p data-i18n="contactsSubtitle">Opposing counsel, experts, witnesses, courts and external professionals.</p></div><button class="primary-btn">＋ <span data-i18n="newContact">New contact</span></button></div><section class="panel table-panel"><div class="table-wrap"><table><thead><tr><th data-i18n="name">Name</th><th data-i18n="role">Role</th><th data-i18n="organization">Organization</th><th data-i18n="linkedMatters">Linked matters</th><th data-i18n="phone">Phone</th></tr></thead><tbody><tr><td><strong>Adv. Noa Shalev</strong></td><td data-i18n="opposingCounsel">Opposing counsel</td><td>Shalev & Partners</td><td>3</td><td>03-555-0184</td></tr><tr><td><strong>Dr. Amir Tal</strong></td><td data-i18n="expertWitness">Expert witness</td><td>Tal Economics</td><td>2</td><td>03-555-0142</td></tr><tr><td><strong>Tel Aviv District Court</strong></td><td data-i18n="court">Court</td><td data-i18n="judiciary">Judiciary</td><td>7</td><td>077-270-3333</td></tr></tbody></table></div></section></section>
+
+        <!-- Settings -->
+        <section class="page" id="page-settings"><div class="page-heading"><div><p class="eyebrow" data-i18n="administration">ADMINISTRATION</p><h1 data-i18n="settings">Settings</h1><p data-i18n="settingsSubtitle">Office profile, users, permissions, security and localization.</p></div></div><div class="settings-grid"><section class="panel settings-card"><h2 data-i18n="languageLocalization">Language & localization</h2><label><span><strong data-i18n="interfaceLanguage">Interface language</strong><small data-i18n="languageHelp">Russian can be disabled later without changing the app structure.</small></span><select id="settingsLanguage"><option value="en">English</option><option value="ru">Русский</option></select></label><label><span><strong data-i18n="currency">Currency</strong><small data-i18n="currencyHelp">Used for time entries and invoices.</small></span><select><option>ILS — ₪</option><option>USD — $</option></select></label></section><section class="panel settings-card"><h2 data-i18n="securityAccess">Security & access</h2><div class="setting-line"><span><strong data-i18n="twoFactor">Two-factor authentication</strong><small data-i18n="recommendedAllUsers">Recommended for all users</small></span><button class="toggle on"><i></i></button></div><div class="setting-line"><span><strong data-i18n="auditLog">Audit log</strong><small data-i18n="auditLogHelp">Track access and changes to legal records</small></span><button class="toggle on"><i></i></button></div><div class="setting-line"><span><strong data-i18n="rolePermissions">Role permissions</strong><small data-i18n="rolePermissionsHelp">Partner, lawyer, assistant, accountant</small></span><button class="secondary-btn" data-i18n="manage">Manage</button></div></section></div></section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="clientModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="newClientTitle">
+      <div class="modal-head"><div><p class="eyebrow" data-i18n="clientRecord">CLIENT RECORD</p><h2 id="newClientTitle" data-i18n="newClient">New client</h2></div><button class="close-modal" id="closeClientModal">×</button></div>
+      <form id="newClientForm">
+        <div class="form-grid"><label><span data-i18n="fullName">Full name</span><input name="name" required placeholder="e.g. David Levi"></label><label><span data-i18n="clientType">Client type</span><select name="type"><option value="Individual" data-i18n="individual">Individual</option><option value="Company" data-i18n="company">Company</option></select></label><label><span data-i18n="email">Email</span><input name="email" type="email" required placeholder="client@example.com"></label><label><span data-i18n="phone">Phone</span><input name="phone" placeholder="+972 ..."></label><label class="full"><span data-i18n="notes">Notes</span><textarea name="notes" rows="4" data-i18n-placeholder="notesPlaceholder" placeholder="Initial consultation notes…"></textarea></label></div>
+        <div class="modal-actions"><button type="button" class="secondary-btn close-modal" data-i18n="cancel">Cancel</button><button type="submit" class="primary-btn" data-i18n="createClient">Create client</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><strong id="toastTitle">Saved</strong><span id="toastText">The demo record was added locally.</span></div>
+  <script src="app.js"></script>
+</body>
+</html>
